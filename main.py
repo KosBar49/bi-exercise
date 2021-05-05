@@ -21,8 +21,6 @@ if __name__ == "__main__":
 
     print(result)
     
-    DBConnection.execute_query("DROP DATABASE IF EXISTS sampledb2")
-    DBConnection.execute_query("CREATE DATABASE sampledb2")
     DBConnection.execute_query("DROP TABLE IF EXISTS taxi")
     with open(TABLE_CREATE, 'r') as file_:
         query = file_.read()
