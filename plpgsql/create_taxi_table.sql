@@ -1,0 +1,22 @@
+CREATE TABLE taxi (
+        vendor_id smallint,
+        lpep_pickup_datetime timestamp,
+        lpep_dropoff_datetime timestamp,
+        store_and_fwd_flag char,
+        ratecode_id smallint,
+        pulocation_id smallint,
+        dolocation_id smallint,
+        passenger_count smallint,
+        trip_distance float,
+        fare_amount float,
+        extra float,
+        mta_tax float,
+        tip_amount float,
+        tolls_amount float,
+        ehail_fee char,
+        improvement_surcharge float,
+        total_amount float,
+        payment_type smallint,
+        trip_type smallint,
+        congestion_surcharge float
+)
