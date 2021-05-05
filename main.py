@@ -12,6 +12,7 @@ TABLE_CREATE = 'plpgsql/create_taxi_table.sql'
 if __name__ == "__main__":
 
     if not os.path.isfile(FILE_TO_PROC):
+        print('Downloading the file from the s3 in progress')
         StorageConnection.download_file(BUCKET, KEY, FILE_TO_PROC)
     else:
         print(f"{FILE_TO_PROC} exists!")

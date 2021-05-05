@@ -18,8 +18,8 @@ DECLARE
 	step float4 := 0;
 	x_step float4;
 	counter int;
-	min_ int; 
-	max_ int;
+	min_ smallint; 
+	max_ smallint;
 	taxi_ float4[];
 BEGIN 
 	IF scope_ IS NOT NULL THEN 
@@ -60,5 +60,3 @@ BEGIN
 	END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-SELECT * from calc_cdf(ARRAY ['2019-12-18'::date, '2020-01-03'::date]);
