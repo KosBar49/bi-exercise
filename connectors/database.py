@@ -10,7 +10,7 @@ class DBConnection():
 
     @classmethod
     def connect(cls, filename, autocommit=True):
-        """Creates return new Singleton database connection"""
+        """ Creates return new Singleton database connection """
         if cls.connection is None:
             params = config(filename)
             try:
@@ -24,7 +24,7 @@ class DBConnection():
 
     @classmethod
     def execute_query(cls, query, fetch=False):
-        """execute query on singleton db connection"""
+        """ Execute query on singleton db connection """
         result = None
         if cls.connection is not None:
             cursor = cls.connection.cursor()
@@ -42,21 +42,23 @@ class DBConnection():
         return result
 
     @classmethod
-    def load_from_file(cls, filename):
+    def load_from_file(cls, filename, table):
+        """ Load table from file to db table """
         if cls.connection is not None:
             cursor = cls.connection.cursor()
         else:
             raise ValueError("DB Connection is not established!")
         with open(filename, 'r') as file_:
-            next(file_) # Skipping the headers
+            next(file_)  # Skipping the headers
             try:
-                cursor.copy_from(file_, 'taxi', sep=',',null='')
+                cursor.copy_from(file_, table, sep=',', null='')
             except Exception as err:
                 cls.print_psycopg2_exception(err)
                 cls.connection.rollback()
 
     @staticmethod
     def print_psycopg2_exception(err):
+        """ Print details about exception from db """
         # get details about the exception
         err_type, err_obj, traceback = sys.exc_info()
 
