@@ -1,17 +1,19 @@
 from connectors.database import DBConnection
 import matplotlib.pyplot as plt
 
-DB_CONFIG = 'database.ini'
+DB_CONFIG = 'config/database.ini'
 FUNCTION_CREATE = 'plpgsql/cdf.sql'
 
-def show_result(result):
+def show_result(result, filename, show=False):
     plt.figure()
     plt.plot(*zip(*result))
     plt.title('Cumulative Distribution Function Plot')
     plt.xlabel('trip_distance')
     plt.ylabel('cdf')
     plt.grid()
-    plt.show()
+    if show:
+        plt.show()
+    plt.savefig(filename)
 
 if __name__ == "__main__":
 
@@ -23,7 +25,7 @@ if __name__ == "__main__":
         DBConnection.execute_query(query)
 
     result = DBConnection.execute_query("SELECT * from calc_cdf(ARRAY ['2019-12-18'::date, '2020-01-03'::date]);", True)
-    show_result(result)
+    show_result(result, 'results/cdf_window.png')
 
     result = DBConnection.execute_query("SELECT * from calc_cdf();", True)
-    show_result(result)
+    show_result(result, 'results/cdf_all.png')
