@@ -26,9 +26,13 @@ if __name__ == "__main__":
         query = file_.read().replace('{table}', TABLE_NAME)
         DBConnection.execute_query(query)
 
-    result = DBConnection.execute_query(
-        "SELECT * from calc_cdf(ARRAY ['2019-12-18'::date, '2020-01-03'::date]);", True)
-    show_result(result, 'results/cdf_window.png')
+    #result = DBConnection.execute_query(
+    #    "SELECT * from calc_cdf(ARRAY ['2019-12-18'::date, '2020-01-03'::date]);", True)
+    #show_result(result, 'results/cdf_window.png')
 
-    result = DBConnection.execute_query("SELECT * from calc_cdf();", True)
-    show_result(result, 'results/cdf_all.png')
+    result = DBConnection.execute_query(
+        "SELECT * from calc_cdf(ARRAY ['2020-01-03'::date, '2020-01-04'::date]);", True)
+    show_result(result, 'results/cdf_window2.png')
+
+    #result = DBConnection.execute_query("SELECT * from calc_cdf();", True)
+    #show_result(result, 'results/cdf_all.png')
