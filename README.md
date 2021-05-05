@@ -31,5 +31,8 @@ Cumulative Dist for [2019-12-18, 2020-01-03] window
 
 ![window](https://github.com/KosBar49/bi_exercise/blob/develop/results/cdf_window.png)
 
+Clumulative Dist for [2020-01-29, 2020-01-30] window
+
+![window](https://github.com/KosBar49/bi_exercise/blob/develop/results/cdf_window2.png)
 
 
