@@ -8,7 +8,7 @@ BUCKET = 'brytlyt'
 KEY = 'MG/taxi_bi.csv'
 DB_CONFIG = 'config/database.ini'
 TABLE_CREATE = 'plpgsql/create_taxi_table.sql'
-TABLE_NAME = 'taxi'
+TABLE_NAME = 'taxi_table'
 
 if __name__ == "__main__":
 
@@ -19,13 +19,11 @@ if __name__ == "__main__":
         print(f"{FILE_TO_PROC} exists!")
 
     DBConnection.connect(DB_CONFIG)
-    result = DBConnection.execute_query("SELECT version()", True)
-
-    print(result)
 
     DBConnection.execute_query(f"DROP TABLE IF EXISTS {TABLE_NAME}")
+    
     with open(TABLE_CREATE, 'r') as file_:
-        query = file_.read()
+        query = file_.read().replace('{table}', TABLE_NAME)
         DBConnection.execute_query(query)
 
     DBConnection.load_from_file(FILE_TO_PROC, TABLE_NAME)

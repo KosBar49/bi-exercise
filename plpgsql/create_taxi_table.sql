@@ -1,4 +1,4 @@
-CREATE TABLE taxi (
+CREATE TABLE {table} (
         vendor_id smallint,
         lpep_pickup_datetime timestamp,
         lpep_dropoff_datetime timestamp,

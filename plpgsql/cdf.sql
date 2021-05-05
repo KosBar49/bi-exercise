@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION trip_window(window_ date[]) RETURNS TABLE (t_distance
 AS
 $$
 BEGIN
-	FOR t_distance in SELECT trip_distance from taxi WHERE lpep_pickup_datetime BETWEEN window_[1] AND window_[2]
+	FOR t_distance in SELECT trip_distance from {table} WHERE lpep_pickup_datetime BETWEEN window_[1] AND window_[2]
 	LOOP
 		return next; 
 	END LOOP;
@@ -24,7 +24,7 @@ DECLARE
 BEGIN 
 	IF scope_ IS NOT NULL THEN 
 		RAISE NOTICE 'Calculating CDF withing window [% - %]', scope_[1], scope_[2];
-		SELECT COUNT(trip_distance), MAX(trip_distance), MIN(trip_distance) from taxi 
+		SELECT COUNT(trip_distance), MAX(trip_distance), MIN(trip_distance) from {table} 
 			WHERE lpep_pickup_datetime BETWEEN scope_[1] AND scope_[2]
 			INTO counter, max_, min_;
 		x_step := (max_ - min_)::float4/99;
@@ -42,12 +42,12 @@ BEGIN
 		END LOOP;
 	ELSE
 		RAISE NOTICE 'Calculating CDF for all records';
-		SELECT COUNT(trip_distance), MAX(trip_distance), MIN(trip_distance) from taxi 
+		SELECT COUNT(trip_distance), MAX(trip_distance), MIN(trip_distance) from {table}
 			INTO counter, max_, min_;
 		x_step := (max_ - min_)::float4/99;
 		FOR x_value, cdf_value in SELECT g.n, COUNT(trip_distance)
 				FROM generate_series(0, 99) g(n) LEFT JOIN
-				taxi
+				{table}
 				ON width_bucket(trip_distance, min_, max_, 99) = g.n
 				GROUP BY g.n
 				ORDER BY g.n 
