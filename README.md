@@ -1,4 +1,5 @@
 # bi_exercise
+The code for fetching data from S3 bucket, upload data to remote postgresql db and visualize data.
 
 ## Prerequisites
 * AWS CLI [configuration](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#configuration)
